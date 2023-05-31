@@ -1,3 +1,8 @@
+'''
+Routers perform dijkstra alogorithm and respond to client requests as well as 
+peer requests for local SPF information
+'''
+
 from flask import Flask, request
 import os, node, misc
 

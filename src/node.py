@@ -1,4 +1,7 @@
-# Class to store node information and neighbors
+'''
+Router class to store local link costs and current SPF information for the current routing domain.
+'''
+
 import socket
 
 

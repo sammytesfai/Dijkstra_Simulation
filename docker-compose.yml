@@ -1,0 +1,92 @@
+version: '1'
+
+services:
+  router_a:
+    container_name: router_a
+    build: .
+    ports:
+      - "13800:13800"
+    environment:
+      - IP=10.10.0.2:13800
+      - LINKS=10.10.0.3:2,10.10.0.4:1,10.10.0.5:5
+      - DOMAIN=10.10.0.2:13800,10.10.0.3:13800,10.10.0.4:13800,10.10.0.5:13800,10.10.0.6:13800,10.10.0.7:13800
+      - NAME=router_a
+    networks:
+      kv_subnet:
+        ipv4_address: 10.10.0.2
+  
+  router_b:
+    container_name: router_b
+    build: .
+    ports:
+      - "13801:13800"
+    environment:
+      - IP=10.10.0.3:13800
+      - LINKS=10.10.0.2:2,10.10.0.4:2,10.10.0.5:3
+      - DOMAIN=10.10.0.2:13800,10.10.0.3:13800,10.10.0.4:13800,10.10.0.5:13800,10.10.0.6:13800,10.10.0.7:13800
+      - NAME=router_b
+    networks:
+      kv_subnet:
+        ipv4_address: 10.10.0.3
+
+  router_c:
+    container_name: router_c
+    build: .
+    ports:
+      - "13802:13800"
+    environment:
+      - IP=10.10.0.4:13800
+      - LINKS=10.10.0.2:1,10.10.0.3:2,10.10.0.5:3,10.10.0.6:1
+      - DOMAIN=10.10.0.2:13800,10.10.0.3:13800,10.10.0.4:13800,10.10.0.5:13800,10.10.0.6:13800,10.10.0.7:13800
+      - NAME=router_c
+    networks:
+      kv_subnet:
+        ipv4_address: 10.10.0.4
+  
+  router_d:
+    container_name: router_d
+    build: .
+    ports:
+      - "13803:13800"
+    environment:
+      - IP=10.10.0.5:13800
+      - LINKS=10.10.0.2:5,10.10.0.3:3,10.10.0.4:3,10.10.0.6:1,10.10.0.7:5
+      - DOMAIN=10.10.0.2:13800,10.10.0.3:13800,10.10.0.4:13800,10.10.0.5:13800,10.10.0.6:13800,10.10.0.7:13800
+      - NAME=router_d
+    networks:
+      kv_subnet:
+        ipv4_address: 10.10.0.5
+  
+  router_e:
+    container_name: router_e
+    build: .
+    ports:
+      - "13804:13800"
+    environment:
+      - IP=10.10.0.6:13800
+      - LINKS=10.10.0.4:1,10.10.0.5:1,10.10.0.7:2
+      - DOMAIN=10.10.0.2:13800,10.10.0.3:13800,10.10.0.4:13800,10.10.0.5:13800,10.10.0.6:13800,10.10.0.7:13800
+      - NAME=router_e
+    networks:
+      kv_subnet:
+        ipv4_address: 10.10.0.6
+
+  router_f:
+    container_name: router_f
+    build: .
+    ports:
+      - "13805:13800"
+    environment:
+      - IP=10.10.0.7:13800
+      - LINKS=10.10.0.5:5,10.10.0.6:2
+      - DOMAIN=10.10.0.2:13800,10.10.0.3:13800,10.10.0.4:13800,10.10.0.5:13800,10.10.0.6:13800,10.10.0.7:13800
+      - NAME=router_f
+    networks:
+      kv_subnet:
+        ipv4_address: 10.10.0.7
+networks:
+  kv_subnet:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.0.0/16

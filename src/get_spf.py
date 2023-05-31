@@ -2,7 +2,6 @@
 User interfaces with this script that will communicate with docker, python
 modules, and other scipts to perform SPF on the specifed routers
 '''
-from PIL import Image
 import os
 file = open("docker-compose.yml", 'r')
 ports = []

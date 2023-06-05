@@ -10,7 +10,7 @@ name_port_map = {}
 while True:
     line = file.readline()
     if line.find('NAME') != -1:
-        names.append(line.split('=')[1].split('\r')[0])
+        names.append(line.split('=')[1].split('\r')[0].split('\n')[0])
     if line.find('ports') != -1:
         line = file.readline()
         ports.append(line.split(':')[0].split('"')[1])
@@ -30,13 +30,13 @@ while True:
     val = input("(Enter router name): ")
     
     print("Results: \n")
-    os.system('curl http://127.0.0.1:{}/dijkstra'.format(name_port_map[val]))
-
-    print('')
-    cont = input("Would you like to run this again? (yes/y or no/n) ")
-    if cont == 'no' or cont == 'n':
-        break
-
-    print('')
-
-os.system('./bin/run_docker.sh')
+    port = name_port_map.get(val)
+    if port:
+        os.system('curl http://127.0.0.1:{}/dijkstra'.format(port))
+        print('')
+        cont = input("Would you like to run this again? (yes/y or no/n) ")
+        if cont == 'no' or cont == 'n':
+            break
+        print('')
+    else:
+        print('You have entered an incorrect router name.')
